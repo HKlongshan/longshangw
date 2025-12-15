@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>僑港順德龍山同鄉會</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* 自定义样式模仿目标网站风格 */
+        :root {
+            --primary-color: #004080; /* 深蓝色，稳重 */
+            --accent-color: #bfa15f;  /* 金色，高贵 */
+        }
+        body { font-family: "Microsoft JhengHei", sans-serif; background-color: #f8f9fa; }
+        
+        /* 导航栏 */
+        .navbar { background-color: white; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .nav-link { color: #333; font-weight: bold; margin: 0 10px; }
+        .nav-link:hover { color: var(--primary-color); }
+        .btn-join { background-color: var(--primary-color); color: white; border-radius: 20px; padding: 5px 20px; }
+        .btn-join:hover { background-color: #003366; color: white; }
+
+        /* 顶部大图 */
+        .hero-section {
+            background: linear-gradient(rgba(0,64,128,0.7), rgba(0,64,128,0.7)), url('https://via.placeholder.com/1920x600?text=同鄉會大合照');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 100px 0;
+            text-align: center;
+        }
+        
+        /* 标题样式 */
+        .section-title {
+            text-align: center;
+            margin: 50px 0 30px;
+            color: var(--primary-color);
+            position: relative;
+            font-weight: bold;
+        }
+        .section-title::after {
+            content: "";
+            display: block;
+            width: 50px;
+            height: 3px;
+            background-color: var(--accent-color);
+            margin: 10px auto;
+        }
+
+        /* 卡片样式 */
+        .card { border: none; transition: transform 0.2s; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
+        .card:hover { transform: translateY(-5px); }
+        .card-img-top { height: 200px; object-fit: cover; }
+        .card-date { color: #888; font-size: 0.9em; }
+
+        /* 页脚 */
+        footer { background-color: #333; color: white; padding: 40px 0; margin-top: 50px; }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg sticky-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold text-primary" href="#">僑港順德龍山同鄉會</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav align-items-center">
+                    <li class="nav-item"><a class="nav-link" href="#home">主頁</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#about">關於我們</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#history">歷史架構</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#news">最新資訊</a></li>
+                    <li class="nav-item"><a class="nav-link btn-join" href="https://hklongshan.github.io/LSruhui/" target="_blank">立即入會</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <header id="home" class="hero-section">
+        <div class="container">
+            <h1 class="display-4 fw-bold">凝聚鄉情 共創未來</h1>
+            <p class="lead">歡迎來到僑港順德龍山同鄉會官方網站</p>
+        </div>
+    </header>
+
+    <section id="about" class="container">
+        <div class="row mt-5">
+            <div class="col-md-6">
+                <h2 class="section-title text-start">同鄉會簡介</h2>
+                <div id="intro-content">
+                    <p>正在加載內容...</p>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <img src="https://via.placeholder.com/600x400?text=活動照片" class="img-fluid rounded shadow" alt="About Us">
+            </div>
+        </div>
+    </section>
+
+    <section id="history" class="bg-light py-5 mt-5">
+        <div class="container">
+            <h2 class="section-title">組織架構与歷史</h2>
+            <div class="row text-center" id="structure-list">
+                </div>
+        </div>
+    </section>
+
+    <section id="news" class="container">
+        <h2 class="section-title">最新活動與公告</h2>
+        <div class="row" id="news-grid">
+            </div>
+    </section>
+
+    <footer id="contact">
+        <div class="container text-center">
+            <h3>僑港順德龍山同鄉會</h3>
+            <p class="mt-3">地址：香港某區某街道某號 | 電話：(852) 1234 5678</p>
+            <p>Email: info@example.com</p>
+            <hr class="border-secondary">
+            <p class="small">&copy; 2024 僑港順德龍山同鄉會. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="data.js"></script>
+    <script>
+        // 1. 渲染简介
+        document.getElementById('intro-content').innerHTML = siteData.introduction;
+
+        // 2. 渲染架构
+        const structureHTML = siteData.structure.map(person => `
+            <div class="col-md-3 mb-4">
+                <div class="p-4 bg-white shadow-sm rounded">
+                    <h5 class="fw-bold text-primary">${person.role}</h5>
+                    <p class="mb-0 fs-5">${person.name}</p>
+                </div>
+            </div>
+        `).join('');
+        document.getElementById('structure-list').innerHTML = structureHTML;
+
+        // 3. 渲染新闻活动 (核心功能)
+        const newsHTML = siteData.news.map(item => `
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    <img src="${item.image}" class="card-img-top" alt="${item.title}">
+                    <div class="card-body">
+                        <p class="card-date"><small>📅 ${item.date}</small></p>
+                        <h5 class="card-title fw-bold">${item.title}</h5>
+                        <p class="card-text text-secondary">${item.summary}</p>
+                        <a href="${item.link}" class="btn btn-outline-primary btn-sm stretched-link">查看詳情</a>
+                    </div>
+                </div>
+            </div>
+        `).join('');
+        document.getElementById('news-grid').innerHTML = newsHTML;
+    </script>
+</body>
+</html>
