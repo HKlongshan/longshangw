@@ -24,6 +24,8 @@
             height: 500px;
             background-size: cover;
             background-position: center;
+            /* 這裡增加了過渡效果，讓輪播更柔和 */
+            transition: background-image 1.0s ease-in-out;
         }
         
         .card-hover { transition: all 0.3s ease; }
@@ -50,7 +52,7 @@
     <header class="bg-primary text-white shadow-md">
         <div class="container mx-auto px-4 py-3 flex justify-between items-center">
             <div class="flex items-center">
-                <div class="w-12 h-12 rounded-full bg-white flex items-center justify-center mr-3">
+                <div id="logo-container" class="w-12 h-12 rounded-full bg-white flex items-center justify-center mr-3 overflow-hidden">
                     <i class="fas fa-landmark text-primary text-xl"></i>
                 </div>
                 <h1 class="text-xl font-bold">順德龍山同鄉會</h1>
@@ -91,6 +93,7 @@
                 </div>
             </div>
         </div>
+        <div class="absolute bottom-4 left-0 right-0 flex justify-center space-x-2" id="hero-indicators"></div>
     </section>
 
     <section class="bg-white py-12">
@@ -104,8 +107,7 @@
                 
                 <div class="md:w-2/3 md:pl-8">
                     <h3 class="text-2xl font-semibold text-primary mb-4">尊敬的各位鄉親：</h3>
-                    <div id="president-text">
-                        </div>
+                    <div id="president-text"></div>
                     <p id="president-sign" class="text-primary font-semibold mt-6"></p>
                 </div>
             </div>
@@ -115,10 +117,7 @@
     <section id="news" class="py-12 bg-gray-50">
         <div class="container mx-auto px-4">
             <h2 class="text-3xl font-bold text-primary mb-8 text-center">本會動態</h2>
-            
-            <div id="news-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                </div>
-            
+            <div id="news-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
             <div class="text-center mt-8">
                 <a href="#" class="inline-block bg-primary text-white px-6 py-3 rounded-md hover:bg-opacity-90 transition">查看更多動態</a>
             </div>
@@ -128,10 +127,7 @@
     <section id="gallery" class="py-12 bg-white">
         <div class="container mx-auto px-4">
             <h2 class="text-3xl font-bold text-primary mb-8 text-center">龍山風采</h2>
-            
-            <div id="gallery-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                </div>
-            
+            <div id="gallery-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"></div>
             <div class="text-center mt-8">
                 <a href="#" class="inline-block bg-primary text-white px-6 py-3 rounded-md hover:bg-opacity-90 transition">瀏覽更多風采</a>
             </div>
@@ -220,14 +216,11 @@
     <section id="contact" class="py-12 bg-primary text-white">
         <div class="container mx-auto px-4">
             <h2 class="text-3xl font-bold mb-8 text-center">聯繫我們</h2>
-            
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <div>
                     <h3 class="text-xl font-semibold mb-4">聯繫資訊</h3>
-                    <div class="space-y-3" id="contact-info-list">
-                        </div>
+                    <div class="space-y-3" id="contact-info-list"></div>
                 </div>
-                
                 <div>
                     <h3 class="text-xl font-semibold mb-4">微信公眾號</h3>
                     <div class="bg-white p-4 rounded-lg inline-block">
@@ -235,7 +228,6 @@
                     </div>
                     <p class="mt-3">掃描二維碼關注我們</p>
                 </div>
-                
                 <div>
                     <h3 class="text-xl font-semibold mb-4">在線留言</h3>
                     <form>
@@ -265,11 +257,37 @@
 
     <script src="data.js"></script>
     <script>
-        // 1. 渲染主视觉
+        // 0. 渲染 Logo (新功能)
+        if (siteData.basic.logo) {
+            const logoContainer = document.getElementById('logo-container');
+            // 清空默認圖標，插入圖片
+            logoContainer.innerHTML = `<img src="${siteData.basic.logo}" alt="Logo" class="w-full h-full object-cover">`;
+        }
+
+        // 1. 渲染主视觉 & 轮播逻辑 (新功能)
         const hero = document.getElementById('hero-slide');
-        hero.style.backgroundImage = `url('${siteData.hero.backgroundImage}')`;
+        const heroImages = siteData.hero.images;
+        let currentSlide = 0;
+
+        // 初始化文字
         document.getElementById('hero-title').innerText = siteData.hero.title;
         document.getElementById('hero-subtitle').innerText = siteData.hero.subtitle;
+
+        // 輪播函數
+        function changeHeroSlide() {
+            // 設置背景圖
+            hero.style.backgroundImage = `url('${heroImages[currentSlide]}')`;
+            // 更新索引，如果到最後一張則回到第一張
+            currentSlide = (currentSlide + 1) % heroImages.length;
+        }
+
+        // 立即執行一次，確保加載時有圖片
+        changeHeroSlide();
+
+        // 啟動定時器，每 5000 毫秒 (5秒) 切換一次
+        if (heroImages.length > 1) {
+            setInterval(changeHeroSlide, 5000);
+        }
 
         // 2. 渲染会长献辞
         document.getElementById('president-photo').src = siteData.president.photo;
@@ -317,7 +335,6 @@
             email: 'envelope',
             hours: 'clock'
         };
-        // 顺序：地址, 电话, 传真, 邮箱, 时间
         const keys = ['address', 'phone', 'fax', 'email', 'hours'];
         keys.forEach(key => {
             if(siteData.contact[key]) {
@@ -336,14 +353,14 @@
         document.getElementById('copyright-year').innerText = siteData.basic.copyrightYear;
         document.getElementById('footer-name').innerText = siteData.basic.name;
 
-        // 移动端菜单切换逻辑 (保留原版)
+        // 移动端菜单切换逻辑
         document.getElementById('mobileMenuButton').addEventListener('click', function() {
             document.getElementById('mobileMenu').classList.toggle('active');
             this.querySelector('i').classList.toggle('fa-bars');
             this.querySelector('i').classList.toggle('fa-times');
         });
 
-        // 平滑滚动逻辑 (保留原版)
+        // 平滑滚动逻辑
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
                 e.preventDefault();
@@ -363,7 +380,7 @@
             });
         });
         
-        // 导航栏滚动效果 (保留原版)
+        // 导航栏滚动效果
         window.addEventListener('scroll', function() {
             const header = document.querySelector('header');
             if (window.scrollY > 100) {
