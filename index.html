@@ -1,159 +1,377 @@
 <!DOCTYPE html>
-<html lang="zh-HK">
+<html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>僑港順德龍山同鄉會</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>順德龍山同鄉會</title>
+    <script src="https://cdn.tailwindcss.com/3.3.3"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
     <style>
-        /* 自定义样式模仿目标网站风格 */
-        :root {
-            --primary-color: #004080; /* 深蓝色，稳重 */
-            --accent-color: #bfa15f;  /* 金色，高贵 */
-        }
-        body { font-family: "Microsoft JhengHei", sans-serif; background-color: #f8f9fa; }
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap');
         
-        /* 导航栏 */
-        .navbar { background-color: white; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-        .nav-link { color: #333; font-weight: bold; margin: 0 10px; }
-        .nav-link:hover { color: var(--primary-color); }
-        .btn-join { background-color: var(--primary-color); color: white; border-radius: 20px; padding: 5px 20px; }
-        .btn-join:hover { background-color: #003366; color: white; }
-
-        /* 顶部大图 */
-        .hero-section {
-            background: linear-gradient(rgba(0,64,128,0.7), rgba(0,64,128,0.7)), url('https://via.placeholder.com/1920x600?text=同鄉會大合照');
+        body {
+            font-family: 'Noto Sans TC', 'Microsoft JhengHei', sans-serif;
+            background-color: #F5F5F5;
+            color: #333333;
+        }
+        
+        .text-primary { color: #C8102E; }
+        .bg-primary { background-color: #C8102E; }
+        .text-secondary { color: #DAA520; }
+        .bg-secondary { background-color: #DAA520; }
+        
+        .hero-slide {
+            height: 500px;
             background-size: cover;
             background-position: center;
-            color: white;
-            padding: 100px 0;
-            text-align: center;
         }
         
-        /* 标题样式 */
-        .section-title {
-            text-align: center;
-            margin: 50px 0 30px;
-            color: var(--primary-color);
-            position: relative;
-            font-weight: bold;
+        .card-hover { transition: all 0.3s ease; }
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
         }
-        .section-title::after {
-            content: "";
-            display: block;
-            width: 50px;
-            height: 3px;
-            background-color: var(--accent-color);
-            margin: 10px auto;
+        
+        .gallery-item {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
         }
-
-        /* 卡片样式 */
-        .card { border: none; transition: transform 0.2s; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
-        .card:hover { transform: translateY(-5px); }
-        .card-img-top { height: 200px; object-fit: cover; }
-        .card-date { color: #888; font-size: 0.9em; }
-
-        /* 页脚 */
-        footer { background-color: #333; color: white; padding: 40px 0; margin-top: 50px; }
+        
+        .mobile-menu {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+        .mobile-menu.active { max-height: 500px; }
     </style>
 </head>
 <body>
-
-    <nav class="navbar navbar-expand-lg sticky-top">
-        <div class="container">
-            <a class="navbar-brand fw-bold text-primary" href="#">僑港順德龍山同鄉會</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-                <ul class="navbar-nav align-items-center">
-                    <li class="nav-item"><a class="nav-link" href="#home">主頁</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#about">關於我們</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#history">歷史架構</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#news">最新資訊</a></li>
-                    <li class="nav-item"><a class="nav-link btn-join" href="https://hklongshan.github.io/LSruhui/" target="_blank">立即入會</a></li>
-                </ul>
+    <header class="bg-primary text-white shadow-md">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center">
+                <div class="w-12 h-12 rounded-full bg-white flex items-center justify-center mr-3">
+                    <i class="fas fa-landmark text-primary text-xl"></i>
+                </div>
+                <h1 class="text-xl font-bold">順德龍山同鄉會</h1>
             </div>
+            
+            <nav class="hidden md:flex space-x-6">
+                <a href="#home" class="hover:text-secondary">首頁</a>
+                <a href="#about" class="hover:text-secondary">關於本會</a>
+                <a href="#news" class="hover:text-secondary">本會動態</a>
+                <a href="#membership" class="hover:text-secondary">會員專區</a>
+                <a href="#gallery" class="hover:text-secondary">龍山風采</a>
+                <a href="#contact" class="hover:text-secondary">聯繫我們</a>
+            </nav>
+            
+            <button id="mobileMenuButton" class="md:hidden text-white focus:outline-none">
+                <i class="fas fa-bars text-2xl"></i>
+            </button>
         </div>
-    </nav>
-
-    <header id="home" class="hero-section">
-        <div class="container">
-            <h1 class="display-4 fw-bold">凝聚鄉情 共創未來</h1>
-            <p class="lead">歡迎來到僑港順德龍山同鄉會官方網站</p>
+        
+        <div id="mobileMenu" class="mobile-menu bg-primary md:hidden">
+            <div class="container mx-auto px-4 py-3 flex flex-col space-y-3">
+                <a href="#home" class="hover:text-secondary py-2">首頁</a>
+                <a href="#about" class="hover:text-secondary py-2">關於本會</a>
+                <a href="#news" class="hover:text-secondary py-2">本會動態</a>
+                <a href="#membership" class="hover:text-secondary py-2">會員專區</a>
+                <a href="#gallery" class="hover:text-secondary py-2">龍山風采</a>
+                <a href="#contact" class="hover:text-secondary py-2">聯繫我們</a>
+            </div>
         </div>
     </header>
 
-    <section id="about" class="container">
-        <div class="row mt-5">
-            <div class="col-md-6">
-                <h2 class="section-title text-start">同鄉會簡介</h2>
-                <div id="intro-content">
-                    <p>正在加載內容...</p>
+    <section id="home" class="relative">
+        <div id="hero-slide" class="hero-slide">
+            <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
+                <div class="text-center text-white px-4">
+                    <h2 id="hero-title" class="text-4xl md:text-5xl font-bold mb-4"></h2>
+                    <p id="hero-subtitle" class="text-xl"></p>
                 </div>
-            </div>
-            <div class="col-md-6">
-                <img src="https://via.placeholder.com/600x400?text=活動照片" class="img-fluid rounded shadow" alt="About Us">
             </div>
         </div>
     </section>
 
-    <section id="history" class="bg-light py-5 mt-5">
-        <div class="container">
-            <h2 class="section-title">組織架構与歷史</h2>
-            <div class="row text-center" id="structure-list">
+    <section class="bg-white py-12">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-primary mb-8 text-center">會長獻辭</h2>
+            
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="md:w-1/3 mb-6 md:mb-0">
+                    <img id="president-photo" src="" alt="會長照片" class="rounded-lg shadow-lg w-full">
                 </div>
+                
+                <div class="md:w-2/3 md:pl-8">
+                    <h3 class="text-2xl font-semibold text-primary mb-4">尊敬的各位鄉親：</h3>
+                    <div id="president-text">
+                        </div>
+                    <p id="president-sign" class="text-primary font-semibold mt-6"></p>
+                </div>
+            </div>
         </div>
     </section>
 
-    <section id="news" class="container">
-        <h2 class="section-title">最新活動與公告</h2>
-        <div class="row" id="news-grid">
+    <section id="news" class="py-12 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-primary mb-8 text-center">本會動態</h2>
+            
+            <div id="news-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                </div>
+            
+            <div class="text-center mt-8">
+                <a href="#" class="inline-block bg-primary text-white px-6 py-3 rounded-md hover:bg-opacity-90 transition">查看更多動態</a>
             </div>
+        </div>
     </section>
 
-    <footer id="contact">
-        <div class="container text-center">
-            <h3>僑港順德龍山同鄉會</h3>
-            <p class="mt-3">地址：香港某區某街道某號 | 電話：(852) 1234 5678</p>
-            <p>Email: info@example.com</p>
-            <hr class="border-secondary">
-            <p class="small">&copy; 2024 僑港順德龍山同鄉會. All Rights Reserved.</p>
-        </div>
-    </footer>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="data.js"></script>
-    <script>
-        // 1. 渲染简介
-        document.getElementById('intro-content').innerHTML = siteData.introduction;
-
-        // 2. 渲染架构
-        const structureHTML = siteData.structure.map(person => `
-            <div class="col-md-3 mb-4">
-                <div class="p-4 bg-white shadow-sm rounded">
-                    <h5 class="fw-bold text-primary">${person.role}</h5>
-                    <p class="mb-0 fs-5">${person.name}</p>
+    <section id="gallery" class="py-12 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-primary mb-8 text-center">龍山風采</h2>
+            
+            <div id="gallery-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                 </div>
+            
+            <div class="text-center mt-8">
+                <a href="#" class="inline-block bg-primary text-white px-6 py-3 rounded-md hover:bg-opacity-90 transition">瀏覽更多風采</a>
             </div>
-        `).join('');
-        document.getElementById('structure-list').innerHTML = structureHTML;
+        </div>
+    </section>
 
-        // 3. 渲染新闻活动 (核心功能)
-        const newsHTML = siteData.news.map(item => `
-            <div class="col-md-4 mb-4">
-                <div class="card h-100">
-                    <img src="${item.image}" class="card-img-top" alt="${item.title}">
-                    <div class="card-body">
-                        <p class="card-date"><small>📅 ${item.date}</small></p>
-                        <h5 class="card-title fw-bold">${item.title}</h5>
-                        <p class="card-text text-secondary">${item.summary}</p>
-                        <a href="${item.link}" class="btn btn-outline-primary btn-sm stretched-link">查看詳情</a>
+    <section id="about" class="py-12 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-primary mb-8 text-center">關於本會</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div>
+                    <h3 class="text-2xl font-semibold text-primary mb-4">本會簡介</h3>
+                    <p class="text-gray-700 mb-4 leading-relaxed">順德龍山同鄉會成立於1985年，是由龍山籍鄉親自發組成的非營利性社會團體。經過近40年的發展，現已成為聯繫全球龍山鄉親的重要紐帶。</p>
+                    <p class="text-gray-700 mb-4 leading-relaxed">本會以"團結鄉親、服務鄉親、造福鄉親"為宗旨，致力於傳承龍山文化，促進家鄉發展，為鄉親提供交流合作平台。</p>
+                    <p class="text-gray-700 leading-relaxed">目前，同鄉會在全球設有12個分會，會員人數超過5000人，每年舉辦各類文化、聯誼、公益活動30餘場。</p>
+                </div>
+                <div>
+                    <h3 class="text-2xl font-semibold text-primary mb-4">組織架構</h3>
+                    <div class="bg-white p-6 rounded-lg shadow-sm">
+                        <div class="mb-4">
+                            <h4 class="text-lg font-medium text-primary mb-2">理事會</h4>
+                            <p class="text-gray-600">會長：張大山</p>
+                            <p class="text-gray-600">副會長：李小明、陳大華、黃小紅</p>
+                        </div>
+                        <div class="mb-4">
+                            <h4 class="text-lg font-medium text-primary mb-2">監事會</h4>
+                            <p class="text-gray-600">監事長：王大明</p>
+                            <p class="text-gray-600">監事：趙小剛、劉小麗</p>
+                        </div>
+                        <div>
+                            <h4 class="text-lg font-medium text-primary mb-2">各委員會</h4>
+                            <p class="text-gray-600">文化委員會、聯誼委員會、公益委員會、青年委員會</p>
+                        </div>
                     </div>
                 </div>
             </div>
-        `).join('');
-        document.getElementById('news-grid').innerHTML = newsHTML;
+        </div>
+    </section>
+
+    <section id="membership" class="py-12 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-primary mb-8 text-center">會員專區</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="bg-gray-50 p-6 rounded-lg">
+                    <h3 class="text-2xl font-semibold text-primary mb-4">入會指南</h3>
+                    <p class="text-gray-700 mb-4">歡迎符合以下條件的鄉親加入本會：</p>
+                    <ul class="list-disc pl-5 text-gray-700 mb-4 space-y-2">
+                        <li>年滿18周歲</li>
+                        <li>本人或直系親屬為龍山籍</li>
+                        <li>認同本會章程</li>
+                    </ul>
+                    <p class="text-gray-700 mb-4">入會流程：</p>
+                    <ol class="list-decimal pl-5 text-gray-700 mb-6 space-y-2">
+                        <li>填寫入會申請表</li>
+                        <li>提交身份證明及戶籍證明</li>
+                        <li>繳納會費</li>
+                        <li>理事會審核通過</li>
+                    </ol>
+                    <a href="https://hklongshan.github.io/LSruhui/" target="_blank" class="inline-block bg-primary text-white px-6 py-2 rounded-md hover:bg-opacity-90 transition">下載申請表格</a>
+                </div>
+                <div class="bg-gray-50 p-6 rounded-lg">
+                    <h3 class="text-2xl font-semibold text-primary mb-4">會員福利</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-start">
+                            <div class="bg-secondary text-white rounded-full w-8 h-8 flex items-center justify-center flex-shrink-0 mr-3"><i class="fas fa-ticket-alt"></i></div>
+                            <div><h4 class="font-medium text-gray-800">活動優先參與權</h4><p class="text-gray-600 text-sm">可優先報名參加同鄉會舉辦的各類文化、聯誼活動</p></div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="bg-secondary text-white rounded-full w-8 h-8 flex items-center justify-center flex-shrink-0 mr-3"><i class="fas fa-percent"></i></div>
+                            <div><h4 class="font-medium text-gray-800">商業折扣</h4><p class="text-gray-600 text-sm">享受會員企業提供的專屬折扣和優惠</p></div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="bg-secondary text-white rounded-full w-8 h-8 flex items-center justify-center flex-shrink-0 mr-3"><i class="fas fa-gavel"></i></div>
+                            <div><h4 class="font-medium text-gray-800">法律諮詢服務</h4><p class="text-gray-600 text-sm">免費享受專業法律顧問提供的基礎法律諮詢</p></div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="bg-secondary text-white rounded-full w-8 h-8 flex items-center justify-center flex-shrink-0 mr-3"><i class="fas fa-book"></i></div>
+                            <div><h4 class="font-medium text-gray-800">文化資源</h4><p class="text-gray-600 text-sm">免費獲取龍山文化研究資料和出版物</p></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="py-12 bg-primary text-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold mb-8 text-center">聯繫我們</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div>
+                    <h3 class="text-xl font-semibold mb-4">聯繫資訊</h3>
+                    <div class="space-y-3" id="contact-info-list">
+                        </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-semibold mb-4">微信公眾號</h3>
+                    <div class="bg-white p-4 rounded-lg inline-block">
+                        <img id="contact-qrcode" src="" alt="微信公眾號" class="w-32 h-32">
+                    </div>
+                    <p class="mt-3">掃描二維碼關注我們</p>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-semibold mb-4">在線留言</h3>
+                    <form>
+                        <div class="mb-4"><input type="text" placeholder="您的姓名" class="w-full px-4 py-2 rounded-md bg-white bg-opacity-20 border border-white border-opacity-30 placeholder-white placeholder-opacity-70 focus:outline-none focus:ring-2 focus:ring-secondary"></div>
+                        <div class="mb-4"><input type="email" placeholder="電子郵箱" class="w-full px-4 py-2 rounded-md bg-white bg-opacity-20 border border-white border-opacity-30 placeholder-white placeholder-opacity-70 focus:outline-none focus:ring-2 focus:ring-secondary"></div>
+                        <div class="mb-4"><input type="tel" placeholder="電話號碼" class="w-full px-4 py-2 rounded-md bg-white bg-opacity-20 border border-white border-opacity-30 placeholder-white placeholder-opacity-70 focus:outline-none focus:ring-2 focus:ring-secondary"></div>
+                        <div class="mb-4"><textarea placeholder="您的留言" rows="3" class="w-full px-4 py-2 rounded-md bg-white bg-opacity-20 border border-white border-opacity-30 placeholder-white placeholder-opacity-70 focus:outline-none focus:ring-2 focus:ring-secondary"></textarea></div>
+                        <button type="submit" class="bg-secondary text-white px-6 py-2 rounded-md hover:bg-opacity-90 transition">提交留言</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-gray-900 text-white py-8">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <p>© <span id="copyright-year"></span> <span id="footer-name"></span> 版權所有</p>
+                </div>
+                <div>
+                    <a href="https://space.coze.cn" class="text-gray-300 hover:text-white transition">Designed by Coze</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="data.js"></script>
+    <script>
+        // 1. 渲染主视觉
+        const hero = document.getElementById('hero-slide');
+        hero.style.backgroundImage = `url('${siteData.hero.backgroundImage}')`;
+        document.getElementById('hero-title').innerText = siteData.hero.title;
+        document.getElementById('hero-subtitle').innerText = siteData.hero.subtitle;
+
+        // 2. 渲染会长献辞
+        document.getElementById('president-photo').src = siteData.president.photo;
+        document.getElementById('president-sign').innerText = `${siteData.president.title} ${siteData.president.name}`;
+        const presidentTextContainer = document.getElementById('president-text');
+        siteData.president.paragraphs.forEach(para => {
+            const p = document.createElement('p');
+            p.className = 'text-gray-700 mb-4 leading-relaxed';
+            p.innerText = para;
+            presidentTextContainer.appendChild(p);
+        });
+
+        // 3. 渲染新闻动态
+        const newsGrid = document.getElementById('news-grid');
+        siteData.news.forEach(item => {
+            const card = document.createElement('div');
+            card.className = 'bg-white rounded-lg shadow-md overflow-hidden card-hover';
+            card.innerHTML = `
+                <div class="h-48 bg-cover bg-center" style="background-image: url('${item.image}')"></div>
+                <div class="p-6">
+                    <div class="text-secondary text-sm mb-2">${item.date}</div>
+                    <h3 class="text-xl font-semibold text-primary mb-3">${item.title}</h3>
+                    <p class="text-gray-600 mb-4">${item.summary}</p>
+                    <a href="${item.link}" class="text-primary font-medium hover:underline">閱讀更多</a>
+                </div>
+            `;
+            newsGrid.appendChild(card);
+        });
+
+        // 4. 渲染相册
+        const galleryGrid = document.getElementById('gallery-grid');
+        siteData.gallery.forEach(imgUrl => {
+            const item = document.createElement('div');
+            item.className = 'gallery-item rounded-lg';
+            item.style.backgroundImage = `url('${imgUrl}')`;
+            galleryGrid.appendChild(item);
+        });
+
+        // 5. 渲染联系方式列表
+        const contactList = document.getElementById('contact-info-list');
+        const contactIcons = {
+            address: 'map-marker-alt',
+            phone: 'phone-alt',
+            fax: 'fax',
+            email: 'envelope',
+            hours: 'clock'
+        };
+        // 顺序：地址, 电话, 传真, 邮箱, 时间
+        const keys = ['address', 'phone', 'fax', 'email', 'hours'];
+        keys.forEach(key => {
+            if(siteData.contact[key]) {
+                const div = document.createElement('div');
+                div.className = 'flex items-start';
+                div.innerHTML = `
+                    <i class="fas fa-${contactIcons[key]} mt-1 mr-3 text-secondary"></i>
+                    <p>${siteData.contact[key]}</p>
+                `;
+                contactList.appendChild(div);
+            }
+        });
+        document.getElementById('contact-qrcode').src = siteData.contact.qrCode;
+
+        // 6. 渲染页脚
+        document.getElementById('copyright-year').innerText = siteData.basic.copyrightYear;
+        document.getElementById('footer-name').innerText = siteData.basic.name;
+
+        // 移动端菜单切换逻辑 (保留原版)
+        document.getElementById('mobileMenuButton').addEventListener('click', function() {
+            document.getElementById('mobileMenu').classList.toggle('active');
+            this.querySelector('i').classList.toggle('fa-bars');
+            this.querySelector('i').classList.toggle('fa-times');
+        });
+
+        // 平滑滚动逻辑 (保留原版)
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    if (document.getElementById('mobileMenu').classList.contains('active')) {
+                        document.getElementById('mobileMenu').classList.remove('active');
+                        document.getElementById('mobileMenuButton').querySelector('i').classList.remove('fa-times');
+                        document.getElementById('mobileMenuButton').querySelector('i').classList.add('fa-bars');
+                    }
+                }
+            });
+        });
+        
+        // 导航栏滚动效果 (保留原版)
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.classList.add('shadow-lg');
+            } else {
+                header.classList.remove('shadow-lg');
+            }
+        });
     </script>
 </body>
 </html>
