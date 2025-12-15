@@ -3,14 +3,21 @@ const siteData = {
     // 1. 網站基本信息
     basic: {
         name: "順德龍山同鄉會",
-        copyrightYear: "2025"
+        copyrightYear: "2025",
+        // 修改這裡：指向你上傳到 pict 文件夾的圖片
+        logo: "pict/icon.jpg" 
     },
 
-    // 2. 主視覺橫幅 (目前是單張大圖，若要改圖請換 url)
+    // 2. 主視覺輪播 (這裡改成了數組，可以放多張圖片)
     hero: {
         title: "凝聚龍山情，共築中國夢",
         subtitle: "全球龍山鄉親的網上家園",
-        backgroundImage: "https://s.coze.cn/image/F7cPpHU4ZU0/"
+        // 修改這裡：這是三張輪播圖，你可以上傳圖片到 pict 然後改成 "pict/banner1.jpg" 等
+        images: [
+            "https://s.coze.cn/image/F7cPpHU4ZU0/", // 圖片 1
+            "https://s.coze.cn/image/rJrnTQvv2kQ/", // 圖片 2 (示例)
+            "https://s.coze.cn/image/_qsH7RmyM2s/"  // 圖片 3 (示例)
+        ]
     },
 
     // 3. 會長獻辭
@@ -18,7 +25,6 @@ const siteData = {
         name: "張大山",
         title: "順德龍山同鄉會會長",
         photo: "https://s.coze.cn/image/yf5J8XJQNj4/",
-        // 這裡可以分段落寫，每一行是一個段落
         paragraphs: [
             "歡迎訪問順德龍山同鄉會官方網站！作為全球龍山鄉親的橋樑和紐帶，本會始終秉承\"團結鄉親、服務鄉親、造福鄉親\"的宗旨，致力於傳承龍山文化，促進家鄉發展。",
             "近年來，在各位鄉親的大力支持下，同鄉會各項工作取得了長足進步。我們成功舉辦了多場文化交流活動，建立了完善的會員服務體系，並積極參與家鄉建設。這些成績的取得，離不開每一位鄉親的熱心參與和無私奉獻。",
@@ -26,8 +32,7 @@ const siteData = {
         ]
     },
 
-    // 4. 本會動態 (增刪查改最頻繁的地方)
-    // 複製一個 { ... } 塊並放在最前面，即可新增新聞
+    // 4. 本會動態
     news: [
         {
             date: "2025-02-10",
@@ -47,12 +52,12 @@ const siteData = {
             date: "2024-12-20",
             title: "2024年度會員大會順利召開",
             summary: "12月18日，同鄉會召開2024年度會員大會，審議通過年度工作報告和財務報告...",
-            image: "https://via.placeholder.com/400x300?text=No+Image", // 暫無圖片時可用這個
+            image: "https://via.placeholder.com/400x300?text=News+Image",
             link: "#"
         }
     ],
 
-    // 5. 龍山風采 (相冊圖片)
+    // 5. 龍山風采
     gallery: [
         "https://s.coze.cn/image/rJrnTQvv2kQ/",
         "https://s.coze.cn/image/_qsH7RmyM2s/",
