@@ -4,19 +4,30 @@ const siteData = {
     basic: {
         name: "順德龍山同鄉會",
         copyrightYear: "2025",
-        // 修改這裡：指向你上傳到 pict 文件夾的圖片
         logo: "pict/icon.jpg" 
     },
 
-    // 2. 主視覺輪播 (這裡改成了數組，可以放多張圖片)
+    // 2. 主視覺輪播 (重要修改：現在是包含圖片和文字的數組)
     hero: {
-        title: "凝聚龍山情，共築中國夢",
-        subtitle: "全球龍山鄉親的網上家園",
-        // 修改這裡：這是三張輪播圖，你可以上傳圖片到 pict 然後改成 "pict/banner1.jpg" 等
-        images: [
-            "https://s.coze.cn/image/F7cPpHU4ZU0/", // 圖片 1
-            "https://s.coze.cn/image/rJrnTQvv2kQ/", // 圖片 2 (示例)
-            "https://s.coze.cn/image/_qsH7RmyM2s/"  // 圖片 3 (示例)
+        // 刪除了 title 和 subtitle，現在它們存在 slides 數組裡
+        
+        // 輪播列表：新增一項就增加一個輪播頁面
+        slides: [
+            {
+                image: "https://s.coze.cn/image/F7cPpHU4ZU0/", // 請換成你上傳到 pict 文件夾的圖片 1      pict/banner1.jpg
+                title: "凝聚龍山情，共築中國夢",
+                subtitle: "全球龍山鄉親的網上家園"
+            },
+            {
+                image: "https://s.coze.cn/image/rJrnTQvv2kQ/", // 請換成你上傳到 pict 文件夾的圖片 2   pict/banner2.jpg
+                title: "團結互助，薪火相傳",
+                subtitle: "歡迎新會員，共創美好未來"
+            },
+            {
+                image: "https://s.coze.cn/image/_qsH7RmyM2s/", // 請換成你上傳到 pict 文件夾的圖片 3     pict/banner3.jpg
+                title: "弘揚龍山文化，促進家鄉發展",
+                subtitle: "了解最新活動，參與公益事業"
+            }
         ]
     },
 
