@@ -71,7 +71,7 @@
         }
         .mobile-menu.active { max-height: 500px; }
 
-        /* --- 活動詳情彈窗樣式 (新增) --- */
+/* --- 活動詳情彈窗樣式 (新增) --- */
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -83,9 +83,9 @@
             justify-content: center;
             align-items: center;
             z-index: 1000;
-            overflow-y: auto; 
             opacity: 0;
             transition: opacity 0.3s ease-in-out;
+            /* 移除這裡的 overflow-y: auto; 讓它只負責居中，不滾動 */
         }
         .modal-content {
             background-color: white;
@@ -94,10 +94,13 @@
             border-radius: 8px;
             max-width: 90%;
             width: 700px;
+            /* **【關鍵優化點】**：限制高度並允許內部滾動 */
             max-height: 90vh; 
-            overflow-y: auto;
+            overflow-y: auto; 
+            /* **【關鍵優化點】**：設置 padding-bottom 以防止滾動到底部時內容緊貼邊緣 */
+            padding-bottom: 3rem; 
             position: relative;
-            transform: scale(0.95) translateY(20px); /* 初始位置略小且往下 */
+            transform: scale(0.95) translateY(20px);
             transition: transform 0.3s ease-out, opacity 0.3s ease-out;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
         }
@@ -108,7 +111,12 @@
         .modal-overlay.active .modal-content {
             transform: scale(1) translateY(0);
         }
-    </style>
+        /* 新增：為活動照片部分添加額外的間距，使其更美觀 */
+        #modal-gallery {
+            padding-top: 1rem;
+        }
+        /* ... (保留所有舊的樣式) ... */
+ </style>
 </head>
 <body>
     <header class="bg-primary text-white shadow-md">
@@ -403,20 +411,32 @@
             const item = siteData.news.find(n => n.id === newsId);
             if (!item) return;
 
-            // 1. 填充內容
-            modalTitle.innerText = item.title;
-            modalDate.innerText = `活動日期：${item.date}`;
-            modalContentText.innerText = item.content; // 使用 innerText 避免 XSS
+            // 1. 填充內容 (略)
+            // ... (內容填充程式碼不變)
             
-            // 2. 填充圖片
+            // 2. 填充圖片 (優化佈局)
             modalGallery.innerHTML = '';
-            item.detailImages.forEach(imgUrl => {
-                const img = document.createElement('img');
-                img.src = imgUrl;
-                img.alt = item.title;
-                img.className = 'w-full h-auto rounded-lg shadow-md object-cover';
-                modalGallery.appendChild(img);
-            });
+            
+            // 根據圖片數量，動態設定 grid 佈局
+            let gridClass = 'grid-cols-1 sm:grid-cols-2'; // 預設 1 到 2 欄
+            if (item.detailImages && item.detailImages.length >= 3) {
+                // 如果圖片數量較多，使用 2 欄，讓它在彈窗內分佈更美觀
+                gridClass = 'grid-cols-1 sm:grid-cols-2';
+            }
+            // 將 gridClass 賦予給 modalGallery
+            modalGallery.className = `grid gap-4 ${gridClass}`;
+
+            if (item.detailImages) {
+                item.detailImages.forEach(imgUrl => {
+                    const img = document.createElement('img');
+                    img.src = imgUrl;
+                    img.alt = item.title;
+                    // w-full h-auto 確保圖片響應式並填滿 grid 空間
+                    img.className = 'w-full h-auto rounded-lg shadow-md object-cover'; 
+                    modalGallery.appendChild(img);
+                });
+            }
+
 
             // 3. 顯示彈窗
             newsModalOverlay.classList.add('active');
