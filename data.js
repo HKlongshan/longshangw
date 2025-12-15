@@ -16,12 +16,12 @@ const siteData = {
                 subtitle: "全球龍山鄉親的網上家園"
             },
             {
-                image: "pict/banner1.jpg", //  pict/banner1.jpg
+                image: "pict/banner2.jpg", //  pict/banner1.jpg
                 title: "團結互助，薪火相傳",
                 subtitle: "歡迎新會員，共創美好未來"
             },
             {
-                image: " pict/banner1.jpg ", //  pict/banner1.jpg  
+                image: " pict/banner3.jpg ", //  pict/banner1.jpg  
                 title: "弘揚龍山文化，促進家鄉發展",
                 subtitle: "了解最新活動，參與公益事業"
             }
