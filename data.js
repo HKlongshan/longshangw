@@ -1,43 +1,76 @@
-// 这里存储网站的所有动态内容
+// data.js - 網站內容管理文件
 const siteData = {
-    // === 1. 同乡会简介 (支持 HTML 标签) ===
-    introduction: `
-        <p>僑港順德龍山同鄉會成立於XXXX年，旨在聯絡鄉情，互助互愛，造福桑梓。</p>
-        <p>本會一直致力於團結在港龍山鄉親，舉辦各類聯誼活動，並積極參與家鄉建設。我們歡迎所有龍山籍人士加入我們的大家庭。</p>
-        <p><strong>宗旨：</strong>愛國、愛港、愛鄉。</p>
-    `,
+    // 1. 網站基本信息
+    basic: {
+        name: "順德龍山同鄉會",
+        copyrightYear: "2025"
+    },
 
-    // === 2. 组织架构 (增删查改人员) ===
-    structure: [
-        { role: "會長", name: "陳大文" },
-        { role: "常務副會長", name: "李小龍" },
-        { role: "理事長", name: "張志明" },
-        { role: "秘書長", name: "黃小美" }
-    ],
+    // 2. 主視覺橫幅 (目前是單張大圖，若要改圖請換 url)
+    hero: {
+        title: "凝聚龍山情，共築中國夢",
+        subtitle: "全球龍山鄉親的網上家園",
+        backgroundImage: "https://s.coze.cn/image/F7cPpHU4ZU0/"
+    },
 
-    // === 3. 最新活动 (增删查改活动) ===
-    // 这里的顺序决定了网页显示的顺序，建议把最新的放在最前面
+    // 3. 會長獻辭
+    president: {
+        name: "張大山",
+        title: "順德龍山同鄉會會長",
+        photo: "https://s.coze.cn/image/yf5J8XJQNj4/",
+        // 這裡可以分段落寫，每一行是一個段落
+        paragraphs: [
+            "歡迎訪問順德龍山同鄉會官方網站！作為全球龍山鄉親的橋樑和紐帶，本會始終秉承\"團結鄉親、服務鄉親、造福鄉親\"的宗旨，致力於傳承龍山文化，促進家鄉發展。",
+            "近年來，在各位鄉親的大力支持下，同鄉會各項工作取得了長足進步。我們成功舉辦了多場文化交流活動，建立了完善的會員服務體系，並積極參與家鄉建設。這些成績的取得，離不開每一位鄉親的熱心參與和無私奉獻。",
+            "展望未來，我們將繼續創新服務方式，拓展服務領域，為全球龍山鄉親搭建更廣闊的交流平台。衷心希望各位鄉親一如既往地關心支持同鄉會工作，共同為傳承龍山文化、促進家鄉發展貢獻力量！"
+        ]
+    },
+
+    // 4. 本會動態 (增刪查改最頻繁的地方)
+    // 複製一個 { ... } 塊並放在最前面，即可新增新聞
     news: [
         {
-            title: "庆祝国庆75周年暨同乡会成立庆典", // 标题
-            date: "2024-10-01",                    // 日期
-            summary: "本会于龙堡国际宾馆举行了盛大的庆祝晚宴，超过500位乡亲出席...", // 简介
-            image: "https://via.placeholder.com/400x300?text=国庆庆典", // 图片链接 (可以用你GitHub里的图片)
-            link: "#" // 点击后跳转的链接 (可以是详情页，也可以是Facebook帖子)
-        },
-        {
-            title: "春季家乡美食一日游",
-            date: "2024-03-15",
-            summary: "组织会员回乡品尝正宗顺德美食，参观龙山最新发展...",
-            image: "https://via.placeholder.com/400x300?text=美食游",
+            date: "2025-02-10",
+            title: "2025年新春團拜活動圓滿舉行",
+            summary: "2月8日，同鄉會在龍山文化中心舉辦新春團拜活動，200餘位鄉親歡聚一堂，共慶新春佳節...",
+            image: "https://s.coze.cn/image/RktqwR6JpJo/",
             link: "#"
         },
         {
-            title: "第十届理事会就职典礼",
-            date: "2023-12-08",
-            summary: "恭喜新一届理事会成员正式就职，带领同乡会再创辉煌。",
-            image: "https://via.placeholder.com/400x300?text=就职典礼",
+            date: "2025-01-15",
+            title: "同鄉會向龍山小學捐贈教學設備",
+            summary: "1月12日，同鄉會向龍山小學捐贈價值50萬元的教學設備，助力家鄉教育事業發展...",
+            image: "https://s.coze.cn/image/X0zhJcQ5QHI/",
+            link: "#"
+        },
+        {
+            date: "2024-12-20",
+            title: "2024年度會員大會順利召開",
+            summary: "12月18日，同鄉會召開2024年度會員大會，審議通過年度工作報告和財務報告...",
+            image: "https://via.placeholder.com/400x300?text=No+Image", // 暫無圖片時可用這個
             link: "#"
         }
-    ]
+    ],
+
+    // 5. 龍山風采 (相冊圖片)
+    gallery: [
+        "https://s.coze.cn/image/rJrnTQvv2kQ/",
+        "https://s.coze.cn/image/_qsH7RmyM2s/",
+        "https://s.coze.cn/image/KSFjZrdZ2x8/",
+        "https://s.coze.cn/image/PNa-Kdu5xWM/",
+        "https://s.coze.cn/image/mcZPeWcBeq0/",
+        "https://s.coze.cn/image/jr0oa58bcGA/",
+        "https://s.coze.cn/image/jt6EF7qB2Jc/",
+        "https://s.coze.cn/image/vVJI8hC6xwU/"
+    ],
+
+    // 6. 聯繫我們
+    contact: {
+        address: "廣東省佛山市順德區龍山鎮同鄉路88號龍山同鄉會大廈",
+        phone: "+86 757 8888 8888",
+        fax: "+86 757 8888 8889",
+        email: "info@longshantongxianghui.org",
+        hours: "週一至週五 9:00-17:00",
+        qrCode: "https://s.coze.cn/image/K0YYgw2FiNo/"
+    }
 };
