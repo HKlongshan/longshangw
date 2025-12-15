@@ -28,6 +28,16 @@
             transition: background-image 1.0s ease-in-out;
         }
         
+        /* 文字淡入淡出效果 */
+        .hero-text {
+            opacity: 1;
+            transition: opacity 0.5s ease-in-out;
+        }
+        .hero-text.fade-out {
+            opacity: 0;
+            transition: opacity 0.1s; /* 快速淡出 */
+        }
+        
         .card-hover { transition: all 0.3s ease; }
         .card-hover:hover {
             transform: translateY(-5px);
@@ -87,7 +97,7 @@
     <section id="home" class="relative">
         <div id="hero-slide" class="hero-slide">
             <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
-                <div class="text-center text-white px-4">
+                <div id="hero-text-container" class="text-center text-white px-4 hero-text">
                     <h2 id="hero-title" class="text-4xl md:text-5xl font-bold mb-4"></h2>
                     <p id="hero-subtitle" class="text-xl"></p>
                 </div>
@@ -257,39 +267,51 @@
 
     <script src="data.js"></script>
     <script>
-        // 0. 渲染 Logo (新功能)
+        // --- 0. 渲染 Logo ---
         if (siteData.basic.logo) {
             const logoContainer = document.getElementById('logo-container');
-            // 清空默認圖標，插入圖片
             logoContainer.innerHTML = `<img src="${siteData.basic.logo}" alt="Logo" class="w-full h-full object-cover">`;
         }
 
-        // 1. 渲染主视觉 & 轮播逻辑 (新功能)
+        // --- 1. 渲染主视觉 & 輪播邏輯 (核心改動) ---
         const hero = document.getElementById('hero-slide');
-        const heroImages = siteData.hero.images;
+        const heroTextContainer = document.getElementById('hero-text-container');
+        const heroTitle = document.getElementById('hero-title');
+        const heroSubtitle = document.getElementById('hero-subtitle');
+        const slides = siteData.hero.slides;
         let currentSlide = 0;
 
-        // 初始化文字
-        document.getElementById('hero-title').innerText = siteData.hero.title;
-        document.getElementById('hero-subtitle').innerText = siteData.hero.subtitle;
-
-        // 輪播函數
         function changeHeroSlide() {
-            // 設置背景圖
-            hero.style.backgroundImage = `url('${heroImages[currentSlide]}')`;
-            // 更新索引，如果到最後一張則回到第一張
-            currentSlide = (currentSlide + 1) % heroImages.length;
+            // 獲取當前幻燈片數據
+            const currentData = slides[currentSlide];
+
+            // 1. 文本快速淡出
+            heroTextContainer.classList.add('fade-out');
+
+            // 2. 圖片切換 (利用 CSS transition 實現慢速淡入淡出)
+            hero.style.backgroundImage = `url('${currentData.image}')`;
+            
+            // 3. 文本更新及淡入 (延遲 0.2 秒，保證淡出完成)
+            setTimeout(() => {
+                heroTitle.innerText = currentData.title;
+                heroSubtitle.innerText = currentData.subtitle;
+                heroTextContainer.classList.remove('fade-out');
+            }, 200); 
+
+            // 4. 更新索引
+            currentSlide = (currentSlide + 1) % slides.length;
         }
 
-        // 立即執行一次，確保加載時有圖片
+        // 立即執行一次，確保加載時有圖片和文字
         changeHeroSlide();
 
         // 啟動定時器，每 5000 毫秒 (5秒) 切換一次
-        if (heroImages.length > 1) {
-            setInterval(changeHeroSlide, 5000);
+        if (slides.length > 1) {
+            // 這裡使用了 5200ms，確保文本切換和圖片切換的時間錯開
+            setInterval(changeHeroSlide, 5200); 
         }
 
-        // 2. 渲染会长献辞
+        // --- 2. 渲染会长献辞 ---
         document.getElementById('president-photo').src = siteData.president.photo;
         document.getElementById('president-sign').innerText = `${siteData.president.title} ${siteData.president.name}`;
         const presidentTextContainer = document.getElementById('president-text');
@@ -300,7 +322,7 @@
             presidentTextContainer.appendChild(p);
         });
 
-        // 3. 渲染新闻动态
+        // --- 3. 渲染新闻动态 ---
         const newsGrid = document.getElementById('news-grid');
         siteData.news.forEach(item => {
             const card = document.createElement('div');
@@ -317,7 +339,7 @@
             newsGrid.appendChild(card);
         });
 
-        // 4. 渲染相册
+        // --- 4. 渲染相册 ---
         const galleryGrid = document.getElementById('gallery-grid');
         siteData.gallery.forEach(imgUrl => {
             const item = document.createElement('div');
@@ -326,7 +348,7 @@
             galleryGrid.appendChild(item);
         });
 
-        // 5. 渲染联系方式列表
+        // --- 5. 渲染联系方式列表 ---
         const contactList = document.getElementById('contact-info-list');
         const contactIcons = {
             address: 'map-marker-alt',
@@ -349,18 +371,18 @@
         });
         document.getElementById('contact-qrcode').src = siteData.contact.qrCode;
 
-        // 6. 渲染页脚
+        // --- 6. 渲染页脚 ---
         document.getElementById('copyright-year').innerText = siteData.basic.copyrightYear;
         document.getElementById('footer-name').innerText = siteData.basic.name;
 
-        // 移动端菜单切换逻辑
+        // --- 7. 移动端菜单切换逻辑 (不变) ---
         document.getElementById('mobileMenuButton').addEventListener('click', function() {
             document.getElementById('mobileMenu').classList.toggle('active');
             this.querySelector('i').classList.toggle('fa-bars');
             this.querySelector('i').classList.toggle('fa-times');
         });
 
-        // 平滑滚动逻辑
+        // --- 8. 平滑滚动逻辑 (不变) ---
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
                 e.preventDefault();
@@ -380,7 +402,7 @@
             });
         });
         
-        // 导航栏滚动效果
+        // --- 9. 导航栏滚动效果 (不变) ---
         window.addEventListener('scroll', function() {
             const header = document.querySelector('header');
             if (window.scrollY > 100) {
