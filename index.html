@@ -70,6 +70,44 @@
             transition: max-height 0.3s ease;
         }
         .mobile-menu.active { max-height: 500px; }
+
+        /* --- 活動詳情彈窗樣式 (新增) --- */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            display: none; /* 預設隱藏 */
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            overflow-y: auto; 
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+        }
+        .modal-content {
+            background-color: white;
+            color: #333;
+            padding: 2rem;
+            border-radius: 8px;
+            max-width: 90%;
+            width: 700px;
+            max-height: 90vh; 
+            overflow-y: auto;
+            position: relative;
+            transform: scale(0.95) translateY(20px); /* 初始位置略小且往下 */
+            transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+        .modal-overlay.active {
+            display: flex;
+            opacity: 1;
+        }
+        .modal-overlay.active .modal-content {
+            transform: scale(1) translateY(0);
+        }
     </style>
 </head>
 <body>
@@ -279,10 +317,22 @@
         </div>
     </footer>
 
+    <div id="news-modal-overlay" class="modal-overlay">
+        <div id="news-modal-content" class="modal-content">
+            <button id="close-modal-btn" class="absolute top-4 right-4 text-3xl font-light text-gray-500 hover:text-primary transition focus:outline-none" aria-label="Close">&times;</button>
+            <h3 id="modal-title" class="text-3xl font-bold text-primary mb-4"></h3>
+            <p id="modal-date" class="text-secondary text-sm mb-4"></p>
+            <div id="modal-content-text" class="text-gray-700 whitespace-pre-wrap leading-relaxed mb-6"></div>
+            
+            <h4 class="text-xl font-semibold text-primary mb-3">活動照片</h4>
+            <div id="modal-gallery" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                </div>
+        </div>
+    </div>
     <script src="data.js"></script>
     <script>
         
-        // --- 0. 全局變量 ---
+        // --- 0. 全局變量 (輪播相關) ---
         const hero = document.getElementById('hero-slide');
         const heroTextContainer = document.getElementById('hero-text-container');
         const heroTitle = document.getElementById('hero-title');
@@ -291,43 +341,41 @@
         const slides = siteData.hero.slides;
         let currentSlide = 0;
         let slideInterval;
-        const intervalTime = 5200; // 5.2秒切換一次
+        const intervalTime = 5200; 
+        
+        // --- 全局變量 (活動彈窗相關) ---
+        const newsModalOverlay = document.getElementById('news-modal-overlay');
+        const closeModalBtn = document.getElementById('close-modal-btn');
+        const modalTitle = document.getElementById('modal-title');
+        const modalDate = document.getElementById('modal-date');
+        const modalContentText = document.getElementById('modal-content-text');
+        const modalGallery = document.getElementById('modal-gallery');
 
-        // --- 核心函數：切換幻燈片 ---
+
+        // --- 核心函數：切換幻燈片 (不變) ---
         function switchSlide(index) {
-            // 1. 清除自動播放定時器，避免衝突
             clearInterval(slideInterval);
-
-            // 2. 設置目標索引
             currentSlide = index;
             const currentData = slides[currentSlide];
-
-            // 3. 文本淡出
             heroTextContainer.classList.add('fade-out');
 
-            // 4. 圖片切換 (延遲 100ms 開始，確保文本有時間淡出)
             setTimeout(() => {
                 hero.style.backgroundImage = `url('${currentData.image}')`;
             }, 100);
             
-            // 5. 文本更新及淡入 (延遲 300ms，保證圖片切換已經開始)
             setTimeout(() => {
                 heroTitle.innerText = currentData.title;
                 heroSubtitle.innerText = currentData.subtitle;
                 heroTextContainer.classList.remove('fade-out');
-                
-                // 6. 更新指示器
                 updateIndicators();
             }, 300);
 
-            // 7. 重啟自動播放定時器
             slideInterval = setInterval(() => {
                 let nextSlide = (currentSlide + 1) % slides.length;
                 switchSlide(nextSlide);
             }, intervalTime);
         }
 
-        // --- 輔助函數：更新指示器樣式 ---
         function updateIndicators() {
             document.querySelectorAll('.indicator').forEach((dot, index) => {
                 if (index === currentSlide) {
@@ -338,17 +386,60 @@
             });
         }
 
-        // --- 輔助函數：生成指示器 ---
         function createIndicators() {
             indicatorContainer.innerHTML = '';
             slides.forEach((_, index) => {
                 const dot = document.createElement('div');
                 dot.className = 'indicator';
-                // 點擊事件：點擊後調用 switchSlide(index) 立即跳轉
                 dot.addEventListener('click', () => switchSlide(index)); 
                 indicatorContainer.appendChild(dot);
             });
         }
+
+        // --- 核心函數：活動彈窗邏輯 (新增) ---
+        
+        // 根據 ID 打開彈窗
+        function openNewsModal(newsId) {
+            const item = siteData.news.find(n => n.id === newsId);
+            if (!item) return;
+
+            // 1. 填充內容
+            modalTitle.innerText = item.title;
+            modalDate.innerText = `活動日期：${item.date}`;
+            modalContentText.innerText = item.content; // 使用 innerText 避免 XSS
+            
+            // 2. 填充圖片
+            modalGallery.innerHTML = '';
+            item.detailImages.forEach(imgUrl => {
+                const img = document.createElement('img');
+                img.src = imgUrl;
+                img.alt = item.title;
+                img.className = 'w-full h-auto rounded-lg shadow-md object-cover';
+                modalGallery.appendChild(img);
+            });
+
+            // 3. 顯示彈窗
+            newsModalOverlay.classList.add('active');
+            // 阻止背景滾動
+            document.body.style.overflow = 'hidden'; 
+        }
+
+        // 關閉彈窗
+        function closeNewsModal() {
+            newsModalOverlay.classList.remove('active');
+            // 恢復背景滾動
+            document.body.style.overflow = 'auto'; 
+        }
+
+        // 綁定關閉事件
+        closeModalBtn.addEventListener('click', closeNewsModal);
+        
+        // 點擊背景遮罩時關閉彈窗
+        newsModalOverlay.addEventListener('click', function(e) {
+            if (e.target === newsModalOverlay) {
+                closeNewsModal();
+            }
+        });
         
         // --- 初始化頁面 ---
         
@@ -359,10 +450,10 @@
         }
 
         // 1. 輪播初始化
-        createIndicators(); // 創建指示點
-        switchSlide(0);     // 從第 0 張幻燈片開始
+        createIndicators(); 
+        switchSlide(0);     
 
-        // 2. 渲染会长献辞 (其餘部分與上次相同)
+        // 2. 渲染会长献辞 (不變)
         document.getElementById('president-photo').src = siteData.president.photo;
         document.getElementById('president-sign').innerText = `${siteData.president.title} ${siteData.president.name}`;
         const presidentTextContainer = document.getElementById('president-text');
@@ -373,24 +464,28 @@
             presidentTextContainer.appendChild(p);
         });
 
-        // 3. 渲染新闻动态
+        // 3. 渲染新聞動態 (修改：增加點擊事件)
         const newsGrid = document.getElementById('news-grid');
         siteData.news.forEach(item => {
             const card = document.createElement('div');
-            card.className = 'bg-white rounded-lg shadow-md overflow-hidden card-hover';
+            // 加上 cursor-pointer，並綁定點擊事件
+            card.className = 'bg-white rounded-lg shadow-md overflow-hidden card-hover cursor-pointer'; 
+            card.setAttribute('onclick', `openNewsModal(${item.id})`); // 點擊時打開彈窗
+
+            // 移除原有的 a href 連結
             card.innerHTML = `
                 <div class="h-48 bg-cover bg-center" style="background-image: url('${item.image}')"></div>
                 <div class="p-6">
                     <div class="text-secondary text-sm mb-2">${item.date}</div>
                     <h3 class="text-xl font-semibold text-primary mb-3">${item.title}</h3>
                     <p class="text-gray-600 mb-4">${item.summary}</p>
-                    <a href="${item.link}" class="text-primary font-medium hover:underline">閱讀更多</a>
+                    <span class="text-primary font-medium hover:underline">查看詳情 &rarr;</span>
                 </div>
             `;
             newsGrid.appendChild(card);
         });
 
-        // 4. 渲染相册
+        // 4. 渲染相册 (不變)
         const galleryGrid = document.getElementById('gallery-grid');
         siteData.gallery.forEach(imgUrl => {
             const item = document.createElement('div');
@@ -399,7 +494,7 @@
             galleryGrid.appendChild(item);
         });
 
-        // 5. 渲染联系方式列表
+        // 5. 渲染联系方式列表 (不變)
         const contactList = document.getElementById('contact-info-list');
         const contactIcons = {
             address: 'map-marker-alt',
@@ -422,18 +517,17 @@
         });
         document.getElementById('contact-qrcode').src = siteData.contact.qrCode;
 
-        // 6. 渲染页脚
+        // 6. 渲染页脚 (不變)
         document.getElementById('copyright-year').innerText = siteData.basic.copyrightYear;
         document.getElementById('footer-name').innerText = siteData.basic.name;
 
-        // 7. 移动端菜单切换逻辑
+        // 7. 菜單和滾動邏輯 (不變)
         document.getElementById('mobileMenuButton').addEventListener('click', function() {
             document.getElementById('mobileMenu').classList.toggle('active');
             this.querySelector('i').classList.toggle('fa-bars');
             this.querySelector('i').classList.toggle('fa-times');
         });
 
-        // 8. 平滑滚动逻辑
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
                 e.preventDefault();
@@ -453,7 +547,6 @@
             });
         });
         
-        // 9. 导航栏滚动效果
         window.addEventListener('scroll', function() {
             const header = document.querySelector('header');
             if (window.scrollY > 100) {
