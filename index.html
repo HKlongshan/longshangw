@@ -24,7 +24,6 @@
             height: 500px;
             background-size: cover;
             background-position: center;
-            /* 這裡增加了過渡效果，讓輪播更柔和 */
             transition: background-image 1.0s ease-in-out;
         }
         
@@ -35,9 +34,24 @@
         }
         .hero-text.fade-out {
             opacity: 0;
-            transition: opacity 0.1s; /* 快速淡出 */
+            transition: opacity 0.1s;
         }
         
+        /* 輪播指示器樣式 */
+        .indicator {
+            width: 10px;
+            height: 10px;
+            background-color: rgba(255, 255, 255, 0.5); /* 半透明白色 */
+            border-radius: 50%;
+            cursor: pointer;
+            transition: background-color 0.3s, width 0.3s, border-radius 0.3s;
+        }
+        .indicator.active {
+            background-color: #DAA520; /* 活躍時變成金色 */
+            width: 30px; /* 變長 */
+            border-radius: 5px; /* 變成橫槓 */
+        }
+
         .card-hover { transition: all 0.3s ease; }
         .card-hover:hover {
             transform: translateY(-5px);
@@ -103,7 +117,7 @@
                 </div>
             </div>
         </div>
-        <div class="absolute bottom-4 left-0 right-0 flex justify-center space-x-2" id="hero-indicators"></div>
+        <div class="absolute bottom-4 left-0 right-0 flex justify-center space-x-3" id="hero-indicators"></div>
     </section>
 
     <section class="bg-white py-12">
@@ -267,51 +281,88 @@
 
     <script src="data.js"></script>
     <script>
-        // --- 0. 渲染 Logo ---
+        
+        // --- 0. 全局變量 ---
+        const hero = document.getElementById('hero-slide');
+        const heroTextContainer = document.getElementById('hero-text-container');
+        const heroTitle = document.getElementById('hero-title');
+        const heroSubtitle = document.getElementById('hero-subtitle');
+        const indicatorContainer = document.getElementById('hero-indicators');
+        const slides = siteData.hero.slides;
+        let currentSlide = 0;
+        let slideInterval;
+        const intervalTime = 5200; // 5.2秒切換一次
+
+        // --- 核心函數：切換幻燈片 ---
+        function switchSlide(index) {
+            // 1. 清除自動播放定時器，避免衝突
+            clearInterval(slideInterval);
+
+            // 2. 設置目標索引
+            currentSlide = index;
+            const currentData = slides[currentSlide];
+
+            // 3. 文本淡出
+            heroTextContainer.classList.add('fade-out');
+
+            // 4. 圖片切換 (延遲 100ms 開始，確保文本有時間淡出)
+            setTimeout(() => {
+                hero.style.backgroundImage = `url('${currentData.image}')`;
+            }, 100);
+            
+            // 5. 文本更新及淡入 (延遲 300ms，保證圖片切換已經開始)
+            setTimeout(() => {
+                heroTitle.innerText = currentData.title;
+                heroSubtitle.innerText = currentData.subtitle;
+                heroTextContainer.classList.remove('fade-out');
+                
+                // 6. 更新指示器
+                updateIndicators();
+            }, 300);
+
+            // 7. 重啟自動播放定時器
+            slideInterval = setInterval(() => {
+                let nextSlide = (currentSlide + 1) % slides.length;
+                switchSlide(nextSlide);
+            }, intervalTime);
+        }
+
+        // --- 輔助函數：更新指示器樣式 ---
+        function updateIndicators() {
+            document.querySelectorAll('.indicator').forEach((dot, index) => {
+                if (index === currentSlide) {
+                    dot.classList.add('active');
+                } else {
+                    dot.classList.remove('active');
+                }
+            });
+        }
+
+        // --- 輔助函數：生成指示器 ---
+        function createIndicators() {
+            indicatorContainer.innerHTML = '';
+            slides.forEach((_, index) => {
+                const dot = document.createElement('div');
+                dot.className = 'indicator';
+                // 點擊事件：點擊後調用 switchSlide(index) 立即跳轉
+                dot.addEventListener('click', () => switchSlide(index)); 
+                indicatorContainer.appendChild(dot);
+            });
+        }
+        
+        // --- 初始化頁面 ---
+        
+        // 0. 渲染 Logo
         if (siteData.basic.logo) {
             const logoContainer = document.getElementById('logo-container');
             logoContainer.innerHTML = `<img src="${siteData.basic.logo}" alt="Logo" class="w-full h-full object-cover">`;
         }
 
-        // --- 1. 渲染主视觉 & 輪播邏輯 (核心改動) ---
-        const hero = document.getElementById('hero-slide');
-        const heroTextContainer = document.getElementById('hero-text-container');
-        const heroTitle = document.getElementById('hero-title');
-        const heroSubtitle = document.getElementById('hero-subtitle');
-        const slides = siteData.hero.slides;
-        let currentSlide = 0;
+        // 1. 輪播初始化
+        createIndicators(); // 創建指示點
+        switchSlide(0);     // 從第 0 張幻燈片開始
 
-        function changeHeroSlide() {
-            // 獲取當前幻燈片數據
-            const currentData = slides[currentSlide];
-
-            // 1. 文本快速淡出
-            heroTextContainer.classList.add('fade-out');
-
-            // 2. 圖片切換 (利用 CSS transition 實現慢速淡入淡出)
-            hero.style.backgroundImage = `url('${currentData.image}')`;
-            
-            // 3. 文本更新及淡入 (延遲 0.2 秒，保證淡出完成)
-            setTimeout(() => {
-                heroTitle.innerText = currentData.title;
-                heroSubtitle.innerText = currentData.subtitle;
-                heroTextContainer.classList.remove('fade-out');
-            }, 200); 
-
-            // 4. 更新索引
-            currentSlide = (currentSlide + 1) % slides.length;
-        }
-
-        // 立即執行一次，確保加載時有圖片和文字
-        changeHeroSlide();
-
-        // 啟動定時器，每 5000 毫秒 (5秒) 切換一次
-        if (slides.length > 1) {
-            // 這裡使用了 5200ms，確保文本切換和圖片切換的時間錯開
-            setInterval(changeHeroSlide, 5200); 
-        }
-
-        // --- 2. 渲染会长献辞 ---
+        // 2. 渲染会长献辞 (其餘部分與上次相同)
         document.getElementById('president-photo').src = siteData.president.photo;
         document.getElementById('president-sign').innerText = `${siteData.president.title} ${siteData.president.name}`;
         const presidentTextContainer = document.getElementById('president-text');
@@ -322,7 +373,7 @@
             presidentTextContainer.appendChild(p);
         });
 
-        // --- 3. 渲染新闻动态 ---
+        // 3. 渲染新闻动态
         const newsGrid = document.getElementById('news-grid');
         siteData.news.forEach(item => {
             const card = document.createElement('div');
@@ -339,7 +390,7 @@
             newsGrid.appendChild(card);
         });
 
-        // --- 4. 渲染相册 ---
+        // 4. 渲染相册
         const galleryGrid = document.getElementById('gallery-grid');
         siteData.gallery.forEach(imgUrl => {
             const item = document.createElement('div');
@@ -348,7 +399,7 @@
             galleryGrid.appendChild(item);
         });
 
-        // --- 5. 渲染联系方式列表 ---
+        // 5. 渲染联系方式列表
         const contactList = document.getElementById('contact-info-list');
         const contactIcons = {
             address: 'map-marker-alt',
@@ -371,18 +422,18 @@
         });
         document.getElementById('contact-qrcode').src = siteData.contact.qrCode;
 
-        // --- 6. 渲染页脚 ---
+        // 6. 渲染页脚
         document.getElementById('copyright-year').innerText = siteData.basic.copyrightYear;
         document.getElementById('footer-name').innerText = siteData.basic.name;
 
-        // --- 7. 移动端菜单切换逻辑 (不变) ---
+        // 7. 移动端菜单切换逻辑
         document.getElementById('mobileMenuButton').addEventListener('click', function() {
             document.getElementById('mobileMenu').classList.toggle('active');
             this.querySelector('i').classList.toggle('fa-bars');
             this.querySelector('i').classList.toggle('fa-times');
         });
 
-        // --- 8. 平滑滚动逻辑 (不变) ---
+        // 8. 平滑滚动逻辑
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
                 e.preventDefault();
@@ -402,7 +453,7 @@
             });
         });
         
-        // --- 9. 导航栏滚动效果 (不变) ---
+        // 9. 导航栏滚动效果
         window.addEventListener('scroll', function() {
             const header = document.querySelector('header');
             if (window.scrollY > 100) {
