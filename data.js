@@ -53,6 +53,8 @@ const siteData = {
             detailImages: [
                 "https://s.coze.cn/image/RktqwR6JpJo/",
                 "https://s.coze.cn/image/X0zhJcQ5QHI/",
+                "https://s.coze.cn/image/X0zhJcQ5QHI/",
+                "https://s.coze.cn/image/X0zhJcQ5QHI/",
                 "https://via.placeholder.com/300x200?text=Group+Photo"
             ]
         },
