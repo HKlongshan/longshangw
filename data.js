@@ -11,17 +11,17 @@ const siteData = {
     hero: {
         slides: [
             {
-                image: "https://s.coze.cn/image/rJrnTQvv2kQ/", //  pict/banner1.jpg
+                image: "pict/banner1.jpg", //  pict/banner1.jpg
                 title: "凝聚龍山情，共築中國夢",
                 subtitle: "全球龍山鄉親的網上家園"
             },
             {
-                image: "https://s.coze.cn/image/_qsH7RmyM2s/", //  pict/banner1.jpg
+                image: "pict/banner1.jpg", //  pict/banner1.jpg
                 title: "團結互助，薪火相傳",
                 subtitle: "歡迎新會員，共創美好未來"
             },
             {
-                image: "https://s.coze.cn/image/KSFjZrdZ2x8/", //  pict/banner1.jpg  
+                image: " pict/banner1.jpg ", //  pict/banner1.jpg  
                 title: "弘揚龍山文化，促進家鄉發展",
                 subtitle: "了解最新活動，參與公益事業"
             }
