@@ -477,7 +477,7 @@
 
         // 2. 渲染會長獻辭
         document.getElementById('president-photo').src = siteData.president.photo;
-        document.getElementById('president-sign').innerText = `${siteData.president.title} ${siteData.president.name}`;
+        document.getElementById('president-sign').innerText = `${siteData.president.name} ${siteData.president.title}`;
         const presidentTextContainer = document.getElementById('president-text');
         siteData.president.paragraphs.forEach(para => {
             const p = document.createElement('p');
