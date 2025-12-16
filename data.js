@@ -54,6 +54,9 @@ const siteData = {
                 "pict/P2.jpeg",
                 "pict/P3.jpeg",
                 "pict/P4.jpeg",
+                "pict/P2.jpeg",
+                "pict/P3.jpeg",
+                "pict/P4.jpeg",
                 "pict/P5.jpeg"
             ]
         },
@@ -65,8 +68,13 @@ const siteData = {
             image: "pict/P2.jpeg",
             content: "本次捐贈儀式在龍山小學禮堂舉行。捐贈的設備包括多媒體教學套件、電腦、以及圖書館新書。會長表示，教育是民族的希望，同鄉會將持續關注家鄉教育發展，貢獻一份力量。",
             detailImages: [
-                "https://via.placeholder.com/600x400?text=捐贈+1",
-                "https://via.placeholder.com/600x400?text=捐贈+2"
+                "pict/P2.jpeg",
+                "pict/P3.jpeg",
+                "pict/P4.jpeg",
+                "pict/P2.jpeg",
+                "pict/P3.jpeg",
+                "pict/P4.jpeg",
+                "pict/P5.jpeg"
             ]
         },
         {
@@ -77,8 +85,13 @@ const siteData = {
             image: "pict/P3.jpeg",
             content: "會員大會順利完成所有議程，包括審議並通過了理事會和監事會的工作報告，以及來年的預算方案。大會選舉了新一屆理事會成員，並明確了未來一年的工作重點，將以服務青年鄉親和傳承文化為核心。",
             detailImages: [
-                "https://via.placeholder.com/600x400?text=會議+1",
-                "https://via.placeholder.com/600x400?text=會議+2"
+                "pict/P2.jpeg",
+                "pict/P3.jpeg",
+                "pict/P4.jpeg",
+                "pict/P2.jpeg",
+                "pict/P3.jpeg",
+                "pict/P4.jpeg",
+                "pict/P5.jpeg"
             ]
         },
         {
@@ -89,10 +102,13 @@ const siteData = {
             image: "pict/P4.jpeg",
             content: "文化週活動涵蓋了舞獅表演、龍山美食體驗、非物質文化遺產展覽等多個環節。特別是傳統龍山戲曲表演，受到了年輕一代鄉親的熱烈追捧。本會承諾明年將繼續擴大舉辦規模。",
             detailImages: [
-                "https://via.placeholder.com/600x400?text=文化週+1",
-                "https://via.placeholder.com/600x400?text=文化週+2",
-                "https://via.placeholder.com/600x400?text=文化週+3 (測試滾動)",
-                "https://via.placeholder.com/600x400?text=文化週+4 (測試滾動)"
+                "pict/P2.jpeg",
+                "pict/P3.jpeg",
+                "pict/P4.jpeg",
+                "pict/P2.jpeg",
+                "pict/P3.jpeg",
+                "pict/P4.jpeg",
+                "pict/P5.jpeg"
             ]
         },
         {
@@ -103,7 +119,13 @@ const siteData = {
             image: "pict/P5.jpeg",
             content: "本次晚宴以'月圓龍山情'為主題，設有歌舞表演、詩歌朗誦等環節。會上，本會表彰了一批對家鄉建設有突出貢獻的傑出鄉親。本次活動旨在加強海內外龍山鄉親之間的聯繫和情誼。",
             detailImages: [
-                "https://via.placeholder.com/600x400?text=晚宴+1"
+                "pict/P2.jpeg",
+                "pict/P3.jpeg",
+                "pict/P4.jpeg",
+                "pict/P2.jpeg",
+                "pict/P3.jpeg",
+                "pict/P4.jpeg",
+                "pict/P5.jpeg"
             ]
         },
         {
@@ -114,8 +136,13 @@ const siteData = {
             image: "pict/P6.jpeg",
             content: "分享會吸引了超過 100 位青年鄉親參加，企業家們就市場趨勢、融資渠道、團隊建設等議題進行了深入探討。會後，同鄉會成立了青年創業導師團，將為有需要的鄉親提供長期支持。",
             detailImages: [
-                "https://via.placeholder.com/600x400?text=分享會+1",
-                "https://via.placeholder.com/600x400?text=分享會+2"
+                "pict/P2.jpeg",
+                "pict/P3.jpeg",
+                "pict/P4.jpeg",
+                "pict/P2.jpeg",
+                "pict/P3.jpeg",
+                "pict/P4.jpeg",
+                "pict/P5.jpeg"
             ]
         }
     ],
