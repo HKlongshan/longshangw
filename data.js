@@ -166,6 +166,6 @@ const siteData = {
         fax: "+86 757 8888 8889",
         email: "info@longshantongxianghui.org",
         hours: "週一至週五 9:00-17:00",
-        qrCode: "https://via.placeholder.com/150x150?text=微信公眾號"
+        qrCode: "pict/huiyuan.png"
     }
 };
