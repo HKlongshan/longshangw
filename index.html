@@ -181,7 +181,7 @@
                 <div class="md:w-2/3 md:pl-8">
                     <h3 class="text-2xl font-semibold text-primary mb-4">尊敬的各位鄉親：</h3>
                     <div id="president-text"></div>
-                    <p id="president-sign" class="text-primary font-semibold mt-6"></p>
+                    <p id="president-sign" class="text-primary mt-6"></p> </div>
                 </div>
             </div>
         </div>
@@ -477,9 +477,15 @@
 
         // 2. 渲染會長獻辭
         document.getElementById('president-photo').src = siteData.president.photo;
-        document.getElementById('president-sign').innerText = `${siteData.president.name} ${siteData.president.title}`;
+        
+        // --- 關鍵修改：分離姓名與職位，並應用新的 class ---
+        const presidentSignElement = document.getElementById('president-sign');
+        presidentSignElement.innerHTML = `<span class="${siteData.president.nameClass}">${siteData.president.name}</span><br><span class="font-semibold text-xl">${siteData.president.title}</span>`;
+        // --------------------------------------------------
+        
         const presidentTextContainer = document.getElementById('president-text');
         siteData.president.paragraphs.forEach(para => {
+// ... (餘下代碼)
             const p = document.createElement('p');
             p.className = 'text-gray-700 mb-4 leading-relaxed';
             p.innerText = para;
