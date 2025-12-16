@@ -161,11 +161,11 @@ const siteData = {
 
     // 6. 聯繫我們 (不變)
     contact: {
-        address: "廣東省佛山市順德區龍山鎮同鄉路88號龍山同鄉會大廈",
-        phone: "+86 757 8888 8888",
-        fax: "+86 757 8888 8889",
-        email: "info@longshantongxianghui.org",
-        hours: "週一至週五 9:00-17:00",
+        address: "香港九龍旺角彌敦道580號恆隆大廈12樓",
+        phone: "+852 2770 8156",
+        fax: "+852 2770 8156",
+        email: "admin@longshan.xin",
+        hours: "週一至週五 9:00-12:00",
         qrCode: "pict/huiyuan.png"
     }
 };
