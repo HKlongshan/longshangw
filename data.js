@@ -108,7 +108,7 @@ const siteData = {
                 "pict/P2.jpeg",
                 "pict/P3.jpeg",
                 "pict/P4.jpeg",
-                "pict/P5.jpeg"
+                "pict/P5.jpeg" 
             ]
         },
         {
