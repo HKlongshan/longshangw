@@ -32,7 +32,7 @@ const siteData = {
     president: {
         name: "胡國光",
         title: "順德龍山同鄉會會長",
-        // 請替換此處的圖片連結
+        nameClass: "text-primary font-bold mt-6 text-3xl",
         photo: "pict/huizhang.jpeg", 
         paragraphs: [
             "歡迎訪問順德龍山同鄉會官方網站！作為全球龍山鄉親的橋樑和紐帶，本會始終秉承\"團結鄉親、服務鄉親、造福鄉親\"的宗旨，致力於傳承龍山文化，促進家鄉發展。",
