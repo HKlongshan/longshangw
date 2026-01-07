@@ -45,70 +45,63 @@ const siteData = {
     news: [
         {
             id: 1, 
-            date: "2025-02-10",
-            title: "2025年新春團拜活動圓滿舉行",
-            summary: "2月8日，同鄉會在龍山文化中心舉辦新春團拜活動，200餘位鄉親歡聚一堂，共慶新春佳節...",
-            image: "pict/P1.jpeg",
-            content: "本次新春團拜活動是疫情後首次大規模線下聚會，現場氣氛熱烈，鄉親們互道祝福。會長張大山先生在致辭中回顧了過去一年的工作，並對新一年的發展進行了展望。活動包括文藝表演、抽獎環節及豐富的午宴。",
+            date: "2025-02-02",
+            title: "龍山觀音開庫、燒大炮民俗盛會熱鬧啟幕",
+            summary: "傳統「觀音開庫」「燒大炮」民俗儀式，邀鄉親與市民共赴充滿年味與福氣的文化之約，重溫本土非遺風情。",
+            image: "P1ZHENGYUE15DAPAO/P1.jpeg",
+            content: "傳承數載的「觀音開庫」祈福儀式、熱鬧「燒大炮」民俗登場，鄉親與遊客可沉浸式體驗本土非遺風情，共赴年味濃郁的春日歡會。",
             detailImages: [
-                "pict/P2.jpeg",
-                "pict/P3.jpeg",
-                "pict/P4.jpeg",
-                "pict/P2.jpeg",
-                "pict/P3.jpeg",
-                "pict/P4.jpeg",
-                "pict/P5.jpeg"
+                "P1ZHENGYUE15DAPAO/P1.jpeg",
+                "P1ZHENGYUE15DAPAO/P2.jpeg",
+                "P1ZHENGYUE15DAPAO/P3.jpeg",
+                "P1ZHENGYUE15DAPAO/P4.jpeg",
+                "P1ZHENGYUE15DAPAO/P5.jpeg",
+
             ]
         },
         {
             id: 2,
             date: "2025-01-15",
-            title: "同鄉會向龍山小學捐贈教學設備",
-            summary: "1月12日，同鄉會向龍山小學捐贈價值50萬元的教學設備，助力家鄉教育事業發展...",
-            image: "pict/P2.jpeg",
-            content: "本次捐贈儀式在龍山小學禮堂舉行。捐贈的設備包括多媒體教學套件、電腦、以及圖書館新書。會長表示，教育是民族的希望，同鄉會將持續關注家鄉教育發展，貢獻一份力量。",
+            title: "僑港順德龍山同鄉會2025新春座談會於香港順利舉辦",
+            summary: "繼 2024 年 4 月建會 60 週年慶典圓滿落幕后，僑港順德龍山同鄉會 2025 新春座談會於香港順利舉辦。",
+            image: "P2XINCHUNZUOTANHUI/P1.jpeg",
+            content: "海內外龍山鄉親齊聚一堂，共賀新春、暢敘鄉情，圍繞會務發展、鄉梓建設等議題建言獻策，現場暖意融融，盡顯僑心向聚的深厚情誼。",
             detailImages: [
-                "pict/P2.jpeg",
-                "pict/P3.jpeg",
-                "pict/P4.jpeg",
-                "pict/P2.jpeg",
-                "pict/P3.jpeg",
-                "pict/P4.jpeg",
-                "pict/P5.jpeg"
+                "P2XINCHUNZUOTANHUI/P1.jpeg",
+                "P2XINCHUNZUOTANHUI/P2.jpeg",
+                "P2XINCHUNZUOTANHUI/P3.jpeg",
+                "P2XINCHUNZUOTANHUI/P4.jpeg",
+                "P2XINCHUNZUOTANHUI/P5.jpeg",
+               
             ]
         },
         {
             id: 3,
-            date: "2024-12-20",
-            title: "2024年度會員大會順利召開",
-            summary: "12月18日，同鄉會召開2024年度會員大會，審議通過年度工作報告和財務報告...",
-            image: "pict/P3.jpeg",
-            content: "會員大會順利完成所有議程，包括審議並通過了理事會和監事會的工作報告，以及來年的預算方案。大會選舉了新一屆理事會成員，並明確了未來一年的工作重點，將以服務青年鄉親和傳承文化為核心。",
+            date: "2024-08-20",
+            title: "2024年度理監事會務大會",
+            summary: "8月20日，同鄉會召開2024年度會員大會，審議通過年度工作報告和財務報告...",
+            image: "P4LIHUI/P1.jpeg",
+            content: "會員大會順利完成所有議程，包括審議並通過了理事會和監事會的工作報告，以及來年的預算方案，並明確了未來一年的工作重點，將以服務青年鄉親和傳承文化為核心。",
             detailImages: [
-                "pict/P2.jpeg",
-                "pict/P3.jpeg",
-                "pict/P4.jpeg",
-                "pict/P2.jpeg",
-                "pict/P3.jpeg",
-                "pict/P4.jpeg",
-                "pict/P5.jpeg"
+                "P4LIHUI/P1.jpeg",
+                "P4LIHUI/P2.jpeg",
+                "P4LIHUI/P3.jpeg",
+                "P4LIHUI/P14.jpeg",
+                
             ]
         },
         {
             id: 4,
-            date: "2024-11-05",
-            title: "龍山文化週圓滿落幕",
-            summary: "為期七天的龍山文化週活動吸引了眾多鄉親和市民參與，成功展示了龍山豐富的傳統文化...",
-            image: "pict/P4.jpeg",
+            date: "2024-07-05",
+            title: "龍山文化三日兩夜觀光之旅",
+            summary: "為期三天的龍山文化活動吸引了眾多鄉親和市民參與，成功展示了龍山豐富的傳統文化...",
+            image: "P3ZOUFANGSHUNDE/P1.jpeg",
             content: "文化週活動涵蓋了舞獅表演、龍山美食體驗、非物質文化遺產展覽等多個環節。特別是傳統龍山戲曲表演，受到了年輕一代鄉親的熱烈追捧。本會承諾明年將繼續擴大舉辦規模。",
             detailImages: [
-                "pict/P2.jpeg",
-                "pict/P3.jpeg",
-                "pict/P4.jpeg",
-                "pict/P2.jpeg",
-                "pict/P3.jpeg",
-                "pict/P4.jpeg",
-                "pict/P5.jpeg" 
+                "P3ZOUFANGSHUNDE/P1.jpeg",
+                "P3ZOUFANGSHUNDE/P2.jpeg",
+                "P3ZOUFANGSHUNDE/P3.jpeg",
+                 
             ]
         },
         {
