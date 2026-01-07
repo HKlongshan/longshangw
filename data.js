@@ -113,28 +113,26 @@ const siteData = {
         },
         {
             id: 5,
-            date: "2024-10-01",
-            title: "國慶暨中秋聯誼晚宴",
-            summary: "同鄉會於國慶佳節舉辦大型聯誼晚宴，近三百名鄉親共聚一堂，慶祝雙節...",
-            image: "pict/P5.jpeg",
-            content: "本次晚宴以'月圓龍山情'為主題，設有歌舞表演、詩歌朗誦等環節。會上，本會表彰了一批對家鄉建設有突出貢獻的傑出鄉親。本次活動旨在加強海內外龍山鄉親之間的聯繫和情誼。",
+            date: "2024-04-20",
+            title: "僑港順德龍山同鄉會建會60週年慶典",
+            summary: "同鄉會於60週年建會慶典，舉辦大型聯誼晚宴，近三百名鄉親共聚一堂，新春敬老聯歡晚會。",
+            image: "P5CHUANGHUI60TH/P1.jpeg",
+            content: "六十年櫛風沐雨凝僑心，一甲子薪火相傳聚鄉情。2024 年 4 月 20 日，僑港順德龍山同鄉會建會 60 周年慶典暨敬老聯歡晚會在香港隆重舉行。",
             detailImages: [
-                "pict/P2.jpeg",
-                "pict/P3.jpeg",
-                "pict/P4.jpeg",
-                "pict/P2.jpeg",
-                "pict/P3.jpeg",
-                "pict/P4.jpeg",
-                "pict/P5.jpeg"
+                "P5CHUANGHUI60TH/P1.jpeg",
+                "P5CHUANGHUI60TH/P2.jpeg",
+                "P5CHUANGHUI60TH/P3.jpeg",
+                "P5CHUANGHUI60TH/P4.jpeg",
+                "P5CHUANGHUI60TH/P5.jpeg"
             ]
         },
         {
             id: 6,
             date: "2024-03-6",
             title: "第一屆僑港順德龍山同鄉花炮會燃情启幕",
-            summary: "锣鼓喧天庆盛世，烟花璀璨映龙山。顺德龙山花炮会在龙山金紫公园隆重举行。",
+            summary: "鑼鼓喧天慶盛世，煙花璀璨映龍山。順德龍山花炮會在龍山金紫公園隆重舉行。",
             image: "P6HUAPAOHUI/P1.jpeg",
-            content: "来自海内外的龙山乡亲、市民游客齐聚一堂，在漫天绚烂与欢声笑语中，共赴这场承载着百年乡愁与美好祈愿的非遗之约，沉浸式感受顺德本土民俗文化的独特魅力。",
+            content: "來自海內外的龍山鄉親、市民遊客齊聚一堂，在漫天絢爛與歡聲笑語中，共赴這場承載著百年鄉愁與美好祈願的非遺之約，沉浸式感受順德本土民俗文化的獨特魅力。",
             detailImages: [
                 "P6HUAPAOHUI/P1.jpeg",
                 "P6HUAPAOHUI/P2.jpeg",
