@@ -130,19 +130,16 @@ const siteData = {
         },
         {
             id: 6,
-            date: "2024-09-15",
-            title: "青年創業分享會成功舉辦",
-            summary: "針對年輕鄉親舉辦的創業分享會，邀請了三位成功企業家分享經驗，反應熱烈...",
-            image: "pict/P6.jpeg",
-            content: "分享會吸引了超過 100 位青年鄉親參加，企業家們就市場趨勢、融資渠道、團隊建設等議題進行了深入探討。會後，同鄉會成立了青年創業導師團，將為有需要的鄉親提供長期支持。",
+            date: "2024-03-6",
+            title: "第一屆僑港順德龍山同鄉花炮會燃情启幕",
+            summary: "锣鼓喧天庆盛世，烟花璀璨映龙山。顺德龙山花炮会在龙山金紫公园隆重举行。",
+            image: "P6HUAPAOHUI/P1.jpeg",
+            content: "来自海内外的龙山乡亲、市民游客齐聚一堂，在漫天绚烂与欢声笑语中，共赴这场承载着百年乡愁与美好祈愿的非遗之约，沉浸式感受顺德本土民俗文化的独特魅力。",
             detailImages: [
-                "pict/P2.jpeg",
-                "pict/P3.jpeg",
-                "pict/P4.jpeg",
-                "pict/P2.jpeg",
-                "pict/P3.jpeg",
-                "pict/P4.jpeg",
-                "pict/P5.jpeg"
+                "P6HUAPAOHUI/P1.jpeg",
+                "P6HUAPAOHUI/P2.jpeg",
+                "P6HUAPAOHUI/P3.jpeg",
+                "P6HUAPAOHUI/P4.jpeg"
             ]
         }
     ],
